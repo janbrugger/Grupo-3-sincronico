@@ -3,14 +3,15 @@
 
 const DATA_URL = "json/data.json"; // URL que contiene los datos que queremos mostrar
 
-const container = document.getElementById("container"); // "Traemos" utilizando el DOM el div de id "container" para colocar la información en él
-
+// const container = document.getElementById("container"); // "Traemos" utilizando el DOM el div de id "container" para colocar la información en él
+const container = document.getElementById("container");
 /**
  * Función que recibe por parámetro un array con los datos que se mostrarán en el DOM
  * Los datos se mostrarán dentro del div de id "container" y por cada ítem se está creando un nuevo párrafo donde se
  * imprime el campo "name" y el campo "lastname" separados por un espacio
  */
 function showData(dataArray) {
+  container.innerHTML = ""
   // El for itera sobre los elementos del array
   for (const item of dataArray) {
     // En la siguiente línea se utilizan "backticks" para armar el String. Más info => https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Template_literals
@@ -19,3 +20,18 @@ function showData(dataArray) {
 }
 
 // Escribe el código necesario para realizar el fetch al archivo con los datos y mostrar los estudiantes con la función showData
+
+// Realizamos la solicitud fetch al archivo JSON y llamamos a la función showdata con los datos
+fetch("json/data.json")
+  .then(response => {
+      if (!response.ok) {
+          throw new Error(`Error en la solicitud fetch! Status: ${response.status}`);
+      }
+      return response.json();
+  })
+  .then(data => {
+      showData(data.students);
+  })
+  .catch(error => {
+      console.error("Fetch error:", error);
+  });
