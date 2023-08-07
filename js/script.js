@@ -35,3 +35,9 @@ fetch("json/data.json")
   .catch(error => {
       console.error("Fetch error:", error);
   });
+
+  // Otra opcion
+
+  // fetch(DATA_URL)
+  // .then(response => response.json())
+  // .then(data => showData(data.students));
