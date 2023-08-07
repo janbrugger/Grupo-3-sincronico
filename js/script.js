@@ -10,12 +10,54 @@ const container = document.getElementById("container"); // "Traemos" utilizando 
  * Los datos se mostrarán dentro del div de id "container" y por cada ítem se está creando un nuevo párrafo donde se
  * imprime el campo "name" y el campo "lastname" separados por un espacio
  */
+
+
+fetch(DATA_URL)//promesa
+  .then(response => response.json()) //Obtenes la informacion en json. convertimos en json.
+  .then(data => showData(data.students)) //mostras los datos
+  .catch(error => console.error("error fetching data: ", error)); //se obtiene un error si es que hay.
+
+
+
+// Realizamos la solicitud fetch al archivo JSON y llamamos a la función showdata con los datos
+/*
+fetch(DATA_URL)
+  .then(response => {
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    
+    return response.json();
+  })
+  .then(data => {
+    
+    showData(data.students);
+  })
+  .catch(error => {
+    console.error("Fetch error:", error);
+  });
+*/
+
+/*
+async function Elfetch(){
+  let response = await fetch(DATA_URL);
+  if(response.ok){
+    let responseContents = await response.json();
+    showData(responseContents.students);
+  } else {
+    alert("ERROR!" + response.status);
+  }
+};
+Elfetch();
+*/
+
 function showData(dataArray) {
   // El for itera sobre los elementos del array
   for (const item of dataArray) {
     // En la siguiente línea se utilizan "backticks" para armar el String. Más info => https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Template_literals
     container.innerHTML += `<p> ${item.name} ${item.lastname} </p>`; // Se concatena cada párrafo de la manera que queremos mostrarlo al innerHTML del contenedor
-  }
+  } //el $ sirve para concatenar el "item"
 }
 
 // Escribe el código necesario para realizar el fetch al archivo con los datos y mostrar los estudiantes con la función showData
