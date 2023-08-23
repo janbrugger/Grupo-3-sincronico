@@ -9,3 +9,7 @@
     overflow: auto;
     height: 200px;
   }
+
+  li{
+    border: 5px gray ;
+  }
