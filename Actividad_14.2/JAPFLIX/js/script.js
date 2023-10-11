@@ -47,30 +47,30 @@ function showMovies(data_movies, busqueda) {
 
         infoCanvas.innerHTML += `
 
-<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvas_${movie.id}" aria-labelledby="offcanvasTopLabel">
-  <div class="offcanvas-header">
-  <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">${movie.title}</h5>
-  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <p>${movie.overview}</p>
-    <p class="text-muted">${movie.genres.map(item => item["name"]).join(" - ")}</p>
-  </div>
-  <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    More
-  </button>
-  <ul class="dropdown-menu">
-    <li class="dropdown-item-text">Year: ${movie.release_date}</li>
-    <li class="dropdown-item-text">Runtime: ${movie.runtime} mins</li>
-    <li class="dropdown-item-text">Budget: $${movie.budget}</li>
-    <li class="dropdown-item-text">Revenue: $${movie.revenue}</li>
+    <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvas_${movie.id}" aria-labelledby="offcanvasTopLabel">
+          <div class="offcanvas-header">
+          <h5 class="offcanvas-title"  id="offcanvasTopLabel">${movie.title}</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+      <div class="offcanvas-body">
+            <p>${movie.overview}</p>
+            <p class="text-muted">${movie.genres.map(item => item["name"]).join(" - ")}</p>
+          </div>
+      <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            More
+          </button>
+          <ul class="dropdown-menu">
+            <li class="dropdown-item-text">Year: ${movie.release_date}</li>
+            <li class="dropdown-item-text">Runtime: ${movie.runtime} mins</li>
+            <li class="dropdown-item-text">Budget: $${movie.budget}</li>
+            <li class="dropdown-item-text">Revenue: $${movie.revenue}</li>
 
-  </ul>
-</div>
- 
-</div>
-        `
+          </ul>
+       </div>
+    
+    </div>
+            `
     }})
 }; //fin showMovies()
 
