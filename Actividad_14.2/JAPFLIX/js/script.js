@@ -36,34 +36,45 @@ function showMovies(data_movies, busqueda) {
         overview.toLowerCase().includes(busqueda.toLowerCase())
     ) {
       lista.innerHTML += `
-        <div onclick="showOffcanvas()" class="list-group-item mb-2 bg-dark text-white" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+        <div class="list-group-item mb-2 bg-dark text-white" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_${movie.id}" aria-controls="offcanvasWithBothOptions">
             <h5>${movie.title}</h4>
             <em class="text-muted">${movie.tagline}</em>
             <span class="estrella">
             ${stars(movie.vote_average)}
            </span>
         </div>
+        `;
+
+        infoCanvas.innerHTML += `
+
+<div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvas_${movie.id}" aria-labelledby="offcanvasTopLabel">
+  <div class="offcanvas-header">
+  <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">${movie.title}</h5>
+  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <p>${movie.overview}</p>
+    <p class="text-muted">${movie.genres.map(item => item["name"]).join(" - ")}</p>
+  </div>
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu">
+    <li class="dropdown-item-text">Year: ${movie.release_date}</li>
+    <li class="dropdown-item-text">Runtime: ${movie.runtime} mins</li>
+    <li class="dropdown-item-text">Budget: $${movie.budget}</li>
+    <li class="dropdown-item-text">Revenue: $${movie.revenue}</li>
+
+  </ul>
+</div>
+ 
+</div>
         `
     }})
 }; //fin showMovies()
 
-function showOffcanvas() {
-   /* data_movies.forEach(movie =>  {
-        const title = movie.title;
-        const genres = movie.genres.join(","); //el join une los generos en una cadena para generar la comparacion con busqueda
-        const overview = movie.overview;
-      if (
-        title.toLowerCase().includes(busqueda.toLowerCase()) ||
-        genres.toLowerCase().includes(busqueda.toLowerCase()) ||
-        overview.toLowerCase().includes(busqueda.toLowerCase())
-    ) {*/
-    infoCanvas.innerHTML += `<div>
-    "HOLA"
 
-
-    </div>
-    `
-}
 
   function stars(quantity) {
     return "<i class='fa fa-star checked'></i>".repeat(Math.floor(quantity/2)) + "<i class='fa fa-star'></i>".repeat(5 - Math.floor(quantity/2));
