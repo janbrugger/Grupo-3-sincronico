@@ -58,7 +58,7 @@ function showMovies(data_movies, busqueda) {
   </div>
   <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown button
+    More
   </button>
   <ul class="dropdown-menu">
     <li class="dropdown-item-text">Year: ${movie.release_date}</li>
