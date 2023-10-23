@@ -22,46 +22,49 @@
             <div class="col-sm-6">
               <label for="nombre" class="form-label">Nombre</label>
               <input type="text" class="form-control" name= "nombre" id="nombre" placeholder="Escriba su nombre" required>
-              <div class="valid-feedback">
-                todo bien
-              </div>
               <div class="invalid-feedback">
-                es necesario poner el nombre
+                Debe ingresar un nombre.
               </div>
             </div>
 
             <div class="col-sm-6">
               <label for="apellido" class="form-label">Apellido</label>
               <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Escriba su apellido" required>
-              <div class="valid-feedback">
-                todo bien
-              </div>
               <div class="invalid-feedback">
-                es necesario poner el apellido
+                Debe ingresar un apellido.
               </div>
             </div>
 
             <div class="col-12">
               <label for="email" class="form-label">Email</label>
               <input type="email" class="form-control" name="email" id="email" placeholder="example@example.com"required>
+              <div class="invalid-feedback">
+                Debe ingresar un email.     
+             </div>
             </div>
 
             <div class="col-sm-6">
               <label for="password1" class="form-label">Contraseña</label>
-              <input type="password" class="form-control" id="password1" placeholder="Escriba su contrasena"  required>
+              <input type="password" class="form-control" id="password1" placeholder="Escriba su contraseña" pattern=".{6,}" required>
+              <div class="invalid-feedback">
+                Debe ingresar una contraseña con al menos 6 caracteres.
+              </div>
             </div>
-
+            
             <div class="col-sm-6">
               <label for="password2" class="form-label">Repetir contraseña</label>
-              <input type="password" class="form-control" id="password2" placeholder="Repetir contrasena" required>
+              <input type="password" class="form-control" id="password2" placeholder="Repetir contraseña" required>
+              <div class="invalid-feedback">
+                Debe ser igual a "Contraseña".
+              </div>
             </div>
 
             <div class="col-sm-12">
               <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal" id="boton_terminos"
                 data-bs-target="#modalTerminos">Términos del servicio</button>
-                <p id="parrafo_terminos" class="d-none" style="color: red;">
-                  Debe aceptar los términos de servicio
-            </p>
+                <span id="feedback_terminos" class="invalid-feedback">
+                  Debe aceptar los términos de servicio.
+              </span>
             </div>
 
 
@@ -80,8 +83,8 @@
                       accusamus.</p>
                   </div>
                   <div class="modal-footer">
-                    <div class="form-check" novalidate>
-                      <input type="checkbox" class="form-check-input" id="terminosCheck" required>
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="terminos" required>
                       <label class="form-check-label" for="terminos">Acepto los términos y condiciones del servicio.</label>
                     </div>
                   </div>

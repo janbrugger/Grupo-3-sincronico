@@ -1,99 +1,43 @@
 const formulario = document.getElementById("form");
-const nombre = document.querySelector("#nombre");
-const apellido = document.querySelector("#apellido");
-const email = document.querySelector("#email");
+const checkbox = document.getElementById('terminos');
+const botonTerminos = document.getElementById('boton_terminos');
+const feedbackTerminos = document.getElementById("feedback_terminos");
+const password1 = document.getElementById("password1");
+const password2 = document.getElementById("password2");
 
 document.addEventListener('DOMContentLoaded', function () {
-    const checkbox = document.getElementById('terminosCheck');
-    const parrafoTerminos = document.getElementById('parrafo_terminos');
-
-    // Agregar un evento de cambio al checkbox
+//Da feedback en tiempo real si se modifica el checkbox
     checkbox.addEventListener('change', function () {
-        // Ajustar la visibilidad del párrafo dependiendo del estado del checkbox
         if (checkbox.checked) {
-            // Ocultar el párrafo
-            parrafoTerminos.classList.add('d-none');
-            parrafoTerminos.classList.remove('d-block');
+            feedbackTerminos.setAttribute("hidden", "true");
+
         } else {
-            // Mostrar el párrafo
-            parrafoTerminos.classList.add('d-block');
-            parrafoTerminos.classList.remove('d-none');
+            feedbackTerminos.removeAttribute("hidden");
+
         }
     });
 });
 
-
-
+//Feedback de Terminos del servicio al hacer submit
 formulario.addEventListener('submit', function(event) {
+    if (!checkbox.checked) {
+        botonTerminos.classList.add('is-invalid');
 
-    const checkbox = document.getElementById('terminosCheck');
-    const parrafoTerminos = document.getElementById('parrafo_terminos');
-
-    // Agregar un evento de cambio al checkbox
-    checkbox.addEventListener('change', function () {
-        // Ajustar la visibilidad del párrafo dependiendo del estado del checkbox
-        if (checkbox.checked) {
-            // Ocultar el párrafo
-            parrafoTerminos.classList.add('d-none');
-            parrafoTerminos.classList.remove('d-block');
-        } else {
-            // Mostrar el párrafo
-            parrafoTerminos.classList.add('d-block');
-            parrafoTerminos.classList.remove('d-none');
-        }
-    });
-
-    const password1 = document.getElementById("password1").value;
-    const password2 = document.getElementById("password2").value;
-  
-    if (password1.length < 6) {
-     // alert("La contraseña debe tener al menos 6 caracteres");
-      event.preventDefault();
-      return;
-    }
-  
-
-if (password1 !== password2) {
-    //alert('Las contraseñas no coinciden');
- event.preventDefault();
- return;
-  }
-
- const email = document.querySelector("#email").value;
-    if(!valEmail(email)) {
-        alert('El email no es válido');
-        event.preventDefault();
-        return;
-    }
-  
-    /*
-    if (!checkTerminos.checked) {
-        // parrafoTerminos.innerText = "Debe aceptar los términos de servicio";
-         parrafoTerminos.removeAttribute("hidden");
-     }
-     */
-
-     if (checkTerminos.checked) {
-        // Ocultar el párrafo
-        parrafoTerminos.classList.add('d-none');
-        parrafoTerminos.classList.remove('d-block');
-    } else {
-        // Mostrar el párrafo
-        parrafoTerminos.classList.add('d-block');
-        parrafoTerminos.classList.remove('d-none');
-    }
-
-
-
+      }
 });
-//Aqui termina el Event de submit
+
+// Validar que las contraseñas coincidan
+password2.addEventListener('input', function () {
+    if (password1.value !== password2.value) {
+        password2.setCustomValidity('Las contraseñas no coinciden');
+    } else {
+        password2.setCustomValidity('');
+    }
+});
 
 
 
-
-   
-
-
+//Aplicar estilos de validación de Bootstrap
 (function () {
     'use strict'
   
