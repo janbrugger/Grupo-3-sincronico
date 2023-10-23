@@ -10,9 +10,11 @@ document.addEventListener('DOMContentLoaded', function () {
     checkbox.addEventListener('change', function () {
         if (checkbox.checked) {
             feedbackTerminos.setAttribute("hidden", "true");
+            botonTerminos.classList.remove('link-danger');
 
         } else {
             feedbackTerminos.removeAttribute("hidden");
+            botonTerminos.classList.add('link-danger');
 
         }
     });
@@ -22,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
 formulario.addEventListener('submit', function(event) {
     if (!checkbox.checked) {
         botonTerminos.classList.add('is-invalid');
+        botonTerminos.classList.add('link-danger');
 
       }
 });
