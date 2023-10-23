@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //Feedback de Terminos del servicio al hacer submit
 formulario.addEventListener('submit', function(event) {
+    event.preventDefault()
     if (!checkbox.checked) {
         botonTerminos.classList.add('is-invalid');
         botonTerminos.classList.add('link-danger');
