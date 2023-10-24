@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             feedbackTerminos.removeAttribute("hidden");
             botonTerminos.classList.add('link-danger');
+            botonTerminos.classList.add('is-invalid');
 
         }
     });
@@ -22,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //Feedback de Terminos del servicio al hacer submit
 formulario.addEventListener('submit', function(event) {
-    event.preventDefault()
     if (!checkbox.checked) {
+        event.preventDefault()
         botonTerminos.classList.add('is-invalid');
         botonTerminos.classList.add('link-danger');
 
