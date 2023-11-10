@@ -6,7 +6,8 @@ const valueBuscarRegistro = document.getElementById("inputGet1Id")
 const pizarra = document.getElementById("results")
 const apiURL = "https://65427af5ad8044116ed37020.mockapi.io/users/";
 
-/*
+
+
 // fetch Guille
 let fetchJSONData = function(url, type){
     let result = {};
@@ -29,89 +30,20 @@ let fetchJSONData = function(url, type){
         return result;
     });
 }
-*/
-/*
-function listAllUsers(){
-    let type = { method: "GET", headers: {"Content-type": "application/json; charset=UTF-8"}};
-    fetchJSONData(usersURL, type)
-    .then(function(resultObj){
-        if (resultObj.status === "ok")
-        {
-            let users = resultObj.data
-            if(valueBuscarRegistro.value === 0){
-    pizarra.innerHTML += users; 
-} else{
-    pizarra.innerHTML += users/valueBuscarRegistro.value;
-            
-        }
-    }})};
-*/
-
-
 
 //Buscar registro
 btnBuscar.addEventListener("click", function(){
-    listAllUsers(valueBuscarRegistro.value)
 
-
-
-    /*
-if(valueBuscarRegistro.value === 0){
-    try {
-        fetch(apiURL)
-        .then(res => res.json())
-
-        }
-            
-        }
-        catch(error){
-            console.log(error)
-        }
-}else{
-    try {
-        fetch(apiURL + valueBuscarRegistro.value)
-        .then(res => res.json())
-        .then(data => pizarra.innerHTML = 
-         `
-        <div>ID: ${data.id}</div> 
-        <div>NAME: ${data.name}</div>
-        <div>LASTNAME: ${data.lastname}</div> 
-        `)
-        }
-        catch(error){
-            console.log(error)
-        }
-}
-*/
-   
+  if(valueBuscarRegistro.value === ""){
+    listAllUsers(valueBuscarRegistro.value)  
+    } else if(valueBuscarRegistro.value >= 1 && valueBuscarRegistro.value <= 6) {
+      listAllUsers(valueBuscarRegistro.value)
+    } else {
+        alert("ingrese un valor entre 1 y 6");
+    } 
 });
 
-
-
-// fetch Guille
-let fetchJSONData = function(url, type){
-    let result = {};
-    return fetch(url, type)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }else{
-        throw Error(response.statusText);
-      }
-    })
-    .then(function(response) {
-          result.status = 'ok';
-          result.data = response;
-          return result;
-    })
-    .catch(function(error) {
-        result.status = 'error';
-        result.data = error;
-        return result;
-    });
-}
-
-//function francisco
+//function fetch users
 function listAllUsers(id){
     let type = { method: "GET", headers: {"Content-type": "application/json; charset=UTF-8"}};
     fetchJSONData(apiURL + id, type).then(function(resultObj){
@@ -128,25 +60,40 @@ function listAllUsers(id){
                 <div>NAME: ${element.name}</div>
                 <div>LASTNAME: ${element.lastname}</div> 
                 `})   
-            } else if(valueBuscarRegistro.value >= 1 || valueBuscarRegistro.value <= 6) {
+            } else if(valueBuscarRegistro.value >= 1 && valueBuscarRegistro.value <= 6) {
                 pizarra.innerHTML =  `
                 <div>ID: ${users.id}</div> 
                 <div>NAME: ${users.name}</div>
                 <div>LASTNAME: ${users.lastname}</div> 
                 `
             } else {
-                alert("ingrese un valor entre 1 y 6")
+                alert("ingrese un valor entre 1 y 6");
             } 
       }})
     }
 
 
-
 //Ingresa un nuevo registro
 btnAgregar.addEventListener("click", function(){
+  console.log('btnAgregar.addEventListener' )
+  let nombre = document.getElementById("inputPostNombre")
+  let apellido = document.getElementById("inputPostApellido")
+  introduceNewUsers(nombre, apellido)
+  
 
 });
 
+function introduceNewUsers(){
+  /*
+let newUser = {
+        'id': id,
+        'nombre': nombre,
+        'apellido': apellido
+    }
+  */
+
+  }
+/*
 // Ejemplo implementando el metodo POST:
 async function postData(apiURL = '', data = {}) {
     // Opciones por defecto estan marcadas con un *
@@ -170,23 +117,14 @@ async function postData(apiURL = '', data = {}) {
     .then(data => {
       console.log(data); // JSON data parsed by `data.json()` call
     });
-
+*/
 
 
 
 
 
     
-// Buscar registro
-/*
-    btnBuscar.addEventListener("Submit", () => {
-      
-if(valueBuscarRegistro.value === 0){
-    pizarra.innerHTML += JSON.stringify(data); 
-}else{
-    pizarra.innerHTML += JSON.stringify(data/valueBuscarRegistro); 
-}});
-    */
+
 
 
 
