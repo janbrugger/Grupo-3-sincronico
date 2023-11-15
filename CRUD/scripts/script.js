@@ -1,11 +1,13 @@
 const btnBuscar = document.getElementById("btnGet1");
 const btnAgregar = document.getElementById("btnPost");
-const btnModificar = document.getElementById("btnPut");
+const btnEnviarCambios = document.getElementById("btnSendChanges");
 const btnBorrar = document.getElementById("btnDelete");
 const inputBuscarRegistro = document.getElementById("inputGet1Id");
 const inputAgregarNombre = document.getElementById("inputPostNombre");
 const inputAgregarApellido = document.getElementById("inputPostApellido");
 const inputModificarRegistro = document.getElementById("inputPutId");
+const inputModificarNombre = document.getElementById("inputPutNombre");
+const inputModificarApellido = document.getElementById("inputPutApellido");
 const inputBorrarRegistro = document.getElementById("inputDelete");
 const pizarra = document.getElementById("results");
 const apiURL = "https://65427af5ad8044116ed37020.mockapi.io/users/";
@@ -44,9 +46,9 @@ function listAllUsers(id) {
     let type = { method: "GET", headers: { "Content-type": "application/json; charset=UTF-8" } };
     fetchJSONData(apiURL + id, type).then(function (resultObj) {
         if (resultObj.status === "ok") {
-            pizarra.innerHTML = ""
-            let users = resultObj.data
-            console.log(users)
+            pizarra.innerHTML = "";
+            let users = resultObj.data;
+            console.log(users);
 
             if (inputBuscarRegistro.value === "") {
                 users.forEach(element => {
@@ -54,7 +56,7 @@ function listAllUsers(id) {
                 <div>ID: ${element.id}</div> 
                 <div>NAME: ${element.name}</div>
                 <div>LASTNAME: ${element.lastname}</div> 
-                `})
+                <br>`})
             } else {
                 pizarra.innerHTML = `
                 <div>ID: ${users.id}</div> 
@@ -82,38 +84,38 @@ function addUser(nombre, apellido) {
     let type = { method: "POST", body: JSON.stringify(newUser), headers: { "Content-type": "application/json; charset=UTF-8" } };
     fetchJSONData(apiURL, type).then(function (resultObj) {
         if (resultObj.status === "ok") {
-            pizarra.innerHTML = ""
-            let users = resultObj.data
-            console.log(users)
+            pizarra.innerHTML = "";
+            let users = resultObj.data;
+            console.log(users);
 
-
+            listAllUsers("");
         }
     })
 
 }
 
-btnModificar.addEventListener("click", function () {
+btnEnviarCambios.addEventListener("click", function () {
 
-    updateUser(inputModificarRegistro.value)
+    updateUser(inputModificarRegistro.value, inputModificarNombre.value, inputModificarApellido.value)
 });
 
 
 
-function updateUser(id) {
+function updateUser(id, nombre, apellido) {
 
     const modifiedUser = {
-        "name": "Nombre actualizado",
-        "lastname": "Apellido actualizado",
-        "id": id
+        "name": nombre,
+        "lastname": apellido,
     }
 
     let type = { method: "PUT", body: JSON.stringify(modifiedUser), headers: { "Content-type": "application/json; charset=UTF-8" } };
     fetchJSONData(apiURL + id, type).then(function (resultObj) {
         if (resultObj.status === "ok") {
-            pizarra.innerHTML = ""
-            let users = resultObj.data
-            console.log(users)
+            pizarra.innerHTML = "";
+            let users = resultObj.data;
+            console.log(users);
 
+            listAllUsers("");
         }
     })
 
@@ -130,11 +132,11 @@ function deleteUser(id) {
     let type = { method: "DELETE", headers: { "Content-type": "application/json; charset=UTF-8" } };
     fetchJSONData(apiURL + id, type).then(function (resultObj) {
         if (resultObj.status === "ok") {
-            pizarra.innerHTML = ""
-            let users = resultObj.data
-            console.log(users)
+            pizarra.innerHTML = "";
+            let users = resultObj.data;
+            console.log(users);
 
-
+            listAllUsers("");
         }
     })
 
