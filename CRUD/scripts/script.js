@@ -53,15 +53,20 @@ function listAllUsers(id) {
             if (inputBuscarRegistro.value === "") {
                 users.forEach(element => {
                     pizarra.innerHTML += `
-                <div>ID: ${element.id}</div> 
-                <div>NAME: ${element.name}</div>
-                <div>LASTNAME: ${element.lastname}</div> 
-                <br>`})
+                        <li class="list-group-item bg-dark text-white">
+                        <div>ID: ${element.id}</div> 
+                        <div>NAME: ${element.name}</div>
+                        <div>LASTNAME: ${element.lastname}</div> 
+                        </li>
+                        `
+                })
             } else {
                 pizarra.innerHTML = `
-                <div>ID: ${users.id}</div> 
-                <div>NAME: ${users.name}</div>
-                <div>LASTNAME: ${users.lastname}</div> 
+                    <li class="list-group-item bg-dark text-white">
+                    <div>ID: ${users.id}</div> 
+                    <div>NAME: ${users.name}</div>
+                    <div>LASTNAME: ${users.lastname}</div>
+                    </li> 
                 `
             }
         }
