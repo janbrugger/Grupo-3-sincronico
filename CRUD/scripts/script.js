@@ -1,5 +1,6 @@
 const btnBuscar = document.getElementById("btnGet1");
 const btnAgregar = document.getElementById("btnPost");
+const btnModificar = document.getElementById("btnPut");
 const btnEnviarCambios = document.getElementById("btnSendChanges");
 const btnBorrar = document.getElementById("btnDelete");
 const inputBuscarRegistro = document.getElementById("inputGet1Id");
@@ -47,17 +48,23 @@ let fetchJSONData = function (url, type) {
 
 // Deshabilitar los botones al cargar la página
 btnAgregar.disabled = true;
+btnModificar.disabled = true;
 btnBorrar.disabled = true;
 
 // Función para habilitar o deshabilitar los botones según si hay entrada en los campos respectivos
 function toggleButtons() {
     btnAgregar.disabled = inputAgregarNombre.value.trim() === "" || inputAgregarApellido.value.trim() === "";
+    btnModificar.disabled = inputModificarRegistro.value.trim() === "";
+    btnEnviarCambios.disabled = inputModificarNombre.value.trim() === "" || inputModificarApellido.value.trim() === "";
     btnBorrar.disabled = inputBorrarRegistro.value.trim() === "";
 }
 
 // Agregar listeners de evento de entrada para cada campo
 inputAgregarNombre.addEventListener("input", toggleButtons);
 inputAgregarApellido.addEventListener("input", toggleButtons);
+inputModificarRegistro.addEventListener("input", toggleButtons);
+inputModificarNombre.addEventListener("input", toggleButtons);
+inputModificarApellido.addEventListener("input", toggleButtons);
 inputBorrarRegistro.addEventListener("input", toggleButtons);
 
 
@@ -67,7 +74,7 @@ toggleButtons();
 
 btnBuscar.addEventListener("click", function () {
 
-    listAllUsers(inputBuscarRegistro.value)
+    listAllUsers(inputBuscarRegistro.value);
 });
 
 
@@ -98,10 +105,13 @@ function listAllUsers(id) {
                     <div>LASTNAME: ${users.lastname}</div>
                     </li> 
                 `
+                inputBuscarRegistro.value = "";
             }
-            
+
         } else {
             showAlert("Algo salió mal...");
+            pizarra.innerHTML = "";
+            inputBuscarRegistro.value = "";
 
         }
     });
@@ -109,7 +119,10 @@ function listAllUsers(id) {
 
 btnAgregar.addEventListener("click", function () {
 
-    addUser(inputAgregarNombre.value, inputAgregarApellido.value)
+    addUser(inputAgregarNombre.value, inputAgregarApellido.value);
+    inputAgregarNombre.value = "";
+    inputAgregarApellido.value = "";
+    toggleButtons()
 });
 
 function addUser(nombre, apellido) {
@@ -127,17 +140,26 @@ function addUser(nombre, apellido) {
             console.log(users);
 
             listAllUsers("");
-            
+
         } else {
             showAlert("Algo salió mal...");
-            
+            pizarra.innerHTML = "";
         }
     });
 }
 
 btnEnviarCambios.addEventListener("click", function () {
 
-    updateUser(inputModificarRegistro.value, inputModificarNombre.value, inputModificarApellido.value)
+    updateUser(inputModificarRegistro.value, inputModificarNombre.value, inputModificarApellido.value);
+    var dataModal = document.getElementById('dataModal');
+    var modal = bootstrap.Modal.getInstance(dataModal)
+    modal.hide();
+
+    inputModificarRegistro.value = "";
+    inputModificarNombre.value = "";
+    inputModificarApellido.value = "";
+
+    toggleButtons()
 });
 
 
@@ -157,9 +179,11 @@ function updateUser(id, nombre, apellido) {
             console.log(users);
 
             listAllUsers("");
-            
+
+
         } else {
             showAlert("Algo salió mal...");
+            pizarra.innerHTML = "";
         }
     });
 }
@@ -168,6 +192,9 @@ function updateUser(id, nombre, apellido) {
 btnBorrar.addEventListener("click", function () {
 
     deleteUser(inputBorrarRegistro.value)
+
+    inputBorrarRegistro.value = "";
+    toggleButtons()
 });
 
 function deleteUser(id) {
@@ -180,8 +207,10 @@ function deleteUser(id) {
             console.log(users);
 
             listAllUsers("");
+            
         } else {
             showAlert("Algo salió mal...");
+            pizarra.innerHTML = "";           
         }
     });
 }
