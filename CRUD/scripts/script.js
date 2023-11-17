@@ -12,6 +12,27 @@ const inputBorrarRegistro = document.getElementById("inputDelete");
 const pizarra = document.getElementById("results");
 const apiURL = "https://65427af5ad8044116ed37020.mockapi.io/users/";
 
+// Función para mostrar alerta
+function showErrorAlert(message) {
+    const alert = document.getElementById("alert-error");
+    alert.textContent = message;
+    alert.classList.add("show");
+
+    setTimeout(() => {
+        alert.classList.remove("show");
+    }, 3000);
+}
+
+// Función para mostrar alertas de éxito
+function showSuccessAlert(message) {
+    const alert = document.getElementById("alert-error");
+    alert.textContent = message;
+    alert.classList.add("show", "success");
+
+    setTimeout(() => {
+        alert.classList.remove("show", "success");
+    }, 3000);
+}
 
 let fetchJSONData = function (url, type) {
     let result = {};
@@ -69,9 +90,11 @@ function listAllUsers(id) {
                     </li> 
                 `
             }
+            showSuccessAlert("Consulta exitosa");
+        } else {
+            showErrorAlert("Error en la consulta");
         }
-    })
-
+    });
 }
 
 btnAgregar.addEventListener("click", function () {
@@ -94,9 +117,11 @@ function addUser(nombre, apellido) {
             console.log(users);
 
             listAllUsers("");
+            showSuccessAlert("Usuario agregado exitosamente");
+        } else {
+            showErrorAlert("Error al agregar usuario");
         }
-    })
-
+    });
 }
 
 btnEnviarCambios.addEventListener("click", function () {
@@ -121,9 +146,11 @@ function updateUser(id, nombre, apellido) {
             console.log(users);
 
             listAllUsers("");
+            showSuccessAlert("Usuario actualizado exitosamente");
+        } else {
+            showErrorAlert("Error al actualizar usuario");
         }
-    })
-
+    });
 }
 
 
@@ -142,7 +169,9 @@ function deleteUser(id) {
             console.log(users);
 
             listAllUsers("");
+            showSuccessAlert("Usuario eliminado exitosamente");
+        } else {
+            showErrorAlert("Error al eliminar usuario");
         }
-    })
-
+    });
 }
