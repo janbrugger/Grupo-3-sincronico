@@ -13,24 +13,13 @@ const pizarra = document.getElementById("results");
 const apiURL = "https://65427af5ad8044116ed37020.mockapi.io/users/";
 
 // Función para mostrar alerta
-function showErrorAlert(message) {
+function showAlert(message) {
     const alert = document.getElementById("alert-error");
     alert.textContent = message;
     alert.classList.add("show");
 
     setTimeout(() => {
         alert.classList.remove("show");
-    }, 3000);
-}
-
-// Función para mostrar alertas de éxito
-function showSuccessAlert(message) {
-    const alert = document.getElementById("alert-error");
-    alert.textContent = message;
-    alert.classList.add("show", "success");
-
-    setTimeout(() => {
-        alert.classList.remove("show", "success");
     }, 3000);
 }
 
@@ -55,6 +44,26 @@ let fetchJSONData = function (url, type) {
             return result;
         });
 }
+
+// Deshabilitar los botones al cargar la página
+btnAgregar.disabled = true;
+btnBorrar.disabled = true;
+
+// Función para habilitar o deshabilitar los botones según si hay entrada en los campos respectivos
+function toggleButtons() {
+    btnAgregar.disabled = inputAgregarNombre.value.trim() === "" || inputAgregarApellido.value.trim() === "";
+    btnBorrar.disabled = inputBorrarRegistro.value.trim() === "";
+}
+
+// Agregar listeners de evento de entrada para cada campo
+inputAgregarNombre.addEventListener("input", toggleButtons);
+inputAgregarApellido.addEventListener("input", toggleButtons);
+inputBorrarRegistro.addEventListener("input", toggleButtons);
+
+
+// Deshabilitar los botones al cargar la página
+toggleButtons();
+
 
 btnBuscar.addEventListener("click", function () {
 
@@ -90,9 +99,10 @@ function listAllUsers(id) {
                     </li> 
                 `
             }
-            showSuccessAlert("Consulta exitosa");
+            
         } else {
-            showErrorAlert("Error en la consulta");
+            showAlert("Algo salió mal...");
+
         }
     });
 }
@@ -117,9 +127,10 @@ function addUser(nombre, apellido) {
             console.log(users);
 
             listAllUsers("");
-            showSuccessAlert("Usuario agregado exitosamente");
+            
         } else {
-            showErrorAlert("Error al agregar usuario");
+            showAlert("Algo salió mal...");
+            
         }
     });
 }
@@ -146,9 +157,9 @@ function updateUser(id, nombre, apellido) {
             console.log(users);
 
             listAllUsers("");
-            showSuccessAlert("Usuario actualizado exitosamente");
+            
         } else {
-            showErrorAlert("Error al actualizar usuario");
+            showAlert("Algo salió mal...");
         }
     });
 }
@@ -169,9 +180,8 @@ function deleteUser(id) {
             console.log(users);
 
             listAllUsers("");
-            showSuccessAlert("Usuario eliminado exitosamente");
         } else {
-            showErrorAlert("Error al eliminar usuario");
+            showAlert("Algo salió mal...");
         }
     });
 }
