@@ -12,6 +12,16 @@ const inputBorrarRegistro = document.getElementById("inputDelete");
 const pizarra = document.getElementById("results");
 const apiURL = "https://65427af5ad8044116ed37020.mockapi.io/users/";
 
+// Función para mostrar alerta
+function showAlert(message) {
+    const alert = document.getElementById("alert-error");
+    alert.textContent = message;
+    alert.classList.add("show");
+
+    setTimeout(() => {
+        alert.classList.remove("show");
+    }, 3000);
+}
 
 let fetchJSONData = function (url, type) {
     let result = {};
@@ -34,6 +44,26 @@ let fetchJSONData = function (url, type) {
             return result;
         });
 }
+
+// Deshabilitar los botones al cargar la página
+btnAgregar.disabled = true;
+btnBorrar.disabled = true;
+
+// Función para habilitar o deshabilitar los botones según si hay entrada en los campos respectivos
+function toggleButtons() {
+    btnAgregar.disabled = inputAgregarNombre.value.trim() === "" || inputAgregarApellido.value.trim() === "";
+    btnBorrar.disabled = inputBorrarRegistro.value.trim() === "";
+}
+
+// Agregar listeners de evento de entrada para cada campo
+inputAgregarNombre.addEventListener("input", toggleButtons);
+inputAgregarApellido.addEventListener("input", toggleButtons);
+inputBorrarRegistro.addEventListener("input", toggleButtons);
+
+
+// Deshabilitar los botones al cargar la página
+toggleButtons();
+
 
 btnBuscar.addEventListener("click", function () {
 
@@ -69,9 +99,12 @@ function listAllUsers(id) {
                     </li> 
                 `
             }
-        }
-    })
+            
+        } else {
+            showAlert("Algo salió mal...");
 
+        }
+    });
 }
 
 btnAgregar.addEventListener("click", function () {
@@ -94,9 +127,12 @@ function addUser(nombre, apellido) {
             console.log(users);
 
             listAllUsers("");
+            
+        } else {
+            showAlert("Algo salió mal...");
+            
         }
-    })
-
+    });
 }
 
 btnEnviarCambios.addEventListener("click", function () {
@@ -121,9 +157,11 @@ function updateUser(id, nombre, apellido) {
             console.log(users);
 
             listAllUsers("");
+            
+        } else {
+            showAlert("Algo salió mal...");
         }
-    })
-
+    });
 }
 
 
@@ -142,7 +180,8 @@ function deleteUser(id) {
             console.log(users);
 
             listAllUsers("");
+        } else {
+            showAlert("Algo salió mal...");
         }
-    })
-
+    });
 }

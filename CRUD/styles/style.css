@@ -34,3 +34,9 @@ main {
     min-height: calc(100vh - 210px);
   }
 
+  /* Estilo para alertas de éxito */
+#alert-error.show.success {
+    background-color: #4CAF50;  /* Verde */
+    color: #fff;               /* Texto blanco */
+}
+
