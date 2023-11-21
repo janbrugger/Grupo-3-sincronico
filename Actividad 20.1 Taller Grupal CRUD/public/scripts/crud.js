@@ -21,28 +21,28 @@ function showAlert() {
 }
 
 function validate() {
-    
+
     if (document.getElementById("inputPostNombre").value && document.getElementById("inputPostApellido").value) {
         document.getElementById("btnPost").disabled = false;
-    }else{
+    } else {
         document.getElementById("btnPost").disabled = true;
     }
 
     if (document.getElementById("inputPutId").value) {
         document.getElementById("btnPut").disabled = false;
-    }else{
+    } else {
         document.getElementById("btnPut").disabled = true;
     }
 
     if (document.getElementById("inputDelete").value) {
         document.getElementById("btnDelete").disabled = false;
-    }else{
+    } else {
         document.getElementById("btnDelete").disabled = true;
     }
 
     if (document.getElementById("inputPutNombre").value && document.getElementById("inputPutApellido").value) {
         document.getElementById("btnSendChanges").disabled = false;
-    }else{
+    } else {
         document.getElementById("btnSendChanges").disabled = true;
     }
 }
@@ -91,36 +91,47 @@ document.addEventListener("DOMContentLoaded", () => {
         postDatos({ name: name.value, lastname: lastname.value });
         [name, lastname].forEach(element => element.value = "");
         validate();
-    })
+    });
 
+    let dataModal = new bootstrap.Modal(document.getElementById("dataModal"));
     document.getElementById("btnPut").addEventListener("click", () => {
+
         let id = document.getElementById("inputPutId").value
         let nameInput = document.getElementById("inputPutNombre");
         let lastNameInput = document.getElementById("inputPutApellido");
+
         requestCRUD('GET', { id })
             .then((response) => {
                 if (response) {
                     nameInput.value = response.name;
                     lastNameInput.value = response.lastname;
-                    let dataModal = new bootstrap.Modal(document.getElementById("dataModal"));
-                    dataModal.show();
-                    document.getElementById("btnSendChanges").addEventListener("click", () => {
-                        putDatos({
-                            id,
-                            name: nameInput.value,
-                            lastname: lastNameInput.value
-                        })
-                        dataModal.hide()
-                    })
 
+                    dataModal.show();
                 } else {
                     showAlert();
+                    document.getElementById("inputPutId").value = "";
                 }
-                document.getElementById("inputPutId").value = "";
+
                 validate();
-            });
+            })
 
     })
+
+    document.getElementById("btnSendChanges").addEventListener("click", () => {
+        let id = document.getElementById("inputPutId").value
+        let nameInput = document.getElementById("inputPutNombre");
+        let lastNameInput = document.getElementById("inputPutApellido");
+
+        putDatos({
+            id,
+            name: nameInput.value,
+            lastname: lastNameInput.value
+        })
+
+        dataModal.hide();
+        document.getElementById("inputPutId").value = "";
+
+    });
 
     document.getElementById("btnDelete").addEventListener("click", () => {
         let inputId = document.getElementById("inputDelete");
